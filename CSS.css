@@ -1,7 +1,5 @@
-/*
-Get a class with .
-Get an id with #
-*/
+/* tic tac toe CSS file */
+
 
 body {
 	padding-top:2%;
@@ -23,32 +21,34 @@ body {
 	text-align: center;
  }
  
-.game_control{
+
+ /* menu block */
+.menu_block{
 	margin-left:auto; 
     margin-right:auto;
 	text-align: center;
-	margin-top:3%;
+	margin-top:10%;
 
 }
 
-.game_control h1{
+.menu_block h1{
 	font-family: Impact;
 	margin-top: 5%;
  }
 
-.game_control table{
+.menu_block table{
     margin-left:auto; 
     margin-right:auto;
 	margin-top:2%;
 	text-align:center;
 }
 
-.game_control .game_options{
+.menu_block .game_options{
 	font-weight: bold;
 	cursor: pointer;
 }
 
-.game_control .game_options td {
+.menu_block .game_options td {
 	border-radius: 8px;
 	text-align: center;
 	width: 200px;
@@ -57,16 +57,16 @@ body {
 
 /* not currently working
 
-.game_control td:hover {
+.menu_block td:hover {
 	border: 2px solid white;
 }
 */
 
-.game_control img{
+.menu_block img{
 	width: 70%;
 }
 
-/* all id's contained in game control */
+/* all id's contained in menu block */
 /* different button colors */
 #human{
 	background-color: blue;
@@ -90,32 +90,7 @@ body {
 	font-size: 35px;
 }
 
-
- /* restart button */
-#restart{
-    margin-left:auto; 
-    margin-right:auto;
-	font-size: 30px;
-	text-align: center;
- }
  
-
-footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 35px;
-    width: 100%;
-	background-color:teal;
-	color:white;
-    margin-left:auto; 
-    margin-right:auto;
-	font-size: 20px;
-	text-align: center;
-	font-size: 18px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
 
 
 
@@ -133,13 +108,13 @@ footer {
 	text-align: center;
 }
 
-#play_lets, #play1, #play2, #play3, #play4, #play5, #play_is, .game_table, #play_happening{
+.game_table {
 	display:none;
 }
 
 .game_table {
 	text-align: center;
-	margin-top: 1.5%;
+	margin-top: 20%;
 	margin-left:auto; 
     margin-right:auto;
 	text-align: center;
@@ -154,11 +129,15 @@ footer {
 	border-color: black;
 	padding-top: 2%;
 	font-size: 25px;
-	width: 200px;
-	height: 200px;
+	width: 50px;
+	height: 50px;
 	cursor:pointer;
 }
 
+.first_player {
+	display: none;
+	margin-top: 30px;
+}
  
  #xo {
     margin-left:auto; 
@@ -173,4 +152,24 @@ footer {
 	top: 20%;
     left: 50%;
     margin-left: -300px;
+*/
+
+
+/* errors in footer css 
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 35px;
+    width: 100%;
+	background-color:teal;
+	color:white;
+    margin-left:auto; 
+    margin-right:auto;
+	font-size: 20px;
+	text-align: center;
+	font-size: 18px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
 */
