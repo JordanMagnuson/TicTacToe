@@ -149,7 +149,7 @@ function playerMove(IDOfCellClicked) {
             	if (difficulty === "AICheater") {
                     for (var i = 0; i < 9; i++) {
                         gameBoard[i] = 'X'; // Take all the cells
-                        $('#' + i).text('X').css('font-size', "90px");
+                        $('#' + i).text('X').css('font-size', "45px");
                         }
                         changePlayer();
                         roundWon();
@@ -184,7 +184,7 @@ function clearBoard() {
 	$('#play_again').fadeOut(1000);
     for (var i = 0; i < 9; i++) { // Clearing the array
         gameBoard[i] = null;
-        $('#' + i).text('X').css('font-size', "35px");
+        $('#' + i).text('X').css('font-size', "25px");
     }
 	$('.game_table td').empty().css("background-color", "white"); //Clear the table visuals and cell highlighting
     $('#play_is').text(startingPlayer + " will start this round.");
