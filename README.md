@@ -11,12 +11,9 @@ Built in JavaScript/Jquery with an interactive front-end interface.
 
 **HOW TO RUN**
 
-To run the program click ![Download here](https://github.com/Ashley-Pettit/TicTacToe/archive/master.zip"Download ZIP")
+To run the program just visit the site
 
-
-Save it to your computer then just run the Game.Html file. 
-
-Alternatively the game will soon be hosted! Stay tuned! 
+http://ashley-pettit.github.io/TicTacToe/
 
 *No code tampering or exploiting bugs!
 

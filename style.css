@@ -37,7 +37,7 @@ header {
 
 .game_options {
 	font-weight: bold;
-	width: 55%;
+	width: 60%;
 	margin: 0 auto;
 	margin-bottom:1%;
 	margin-top:1%;
@@ -171,9 +171,9 @@ header {
 
 .imageAndPrize{
 	margin:0 auto;
-	width: 50%;
+	width: 55%;
 	font-family: fantasy;
-	font-size: 20px;
+	font-size: 22px;
 	margin-left:25%;
 }
 
