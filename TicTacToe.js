@@ -1,14 +1,4 @@
 
-//Please note the code is still a work in progress! Not best practice yet! :)
-
-//Fix if parent of difficulty clicked but not on a direct child >> app still launches == bad.
-//Add testing
-//Wireframe the front end with a bootstrap style design
-//Check that all variables and objects have relevant names
-//animation with jquery >> google it
-//set up bootstrap
-//fix game options click
-
 $(document).ready(function() {
     gameBoard = setUpBoard();
     $('.game_options td').click(function(e) {
@@ -45,10 +35,11 @@ app.player1Score = 0;
 app.player2Score = 0;
 app.isRoundInProgress = true;
 app.gameOptionsAlreadyclicked = false;
+app.startingPlayer = null;
+app.currentPlayer = null;
 
-function countdownAnimation() {
+function countdownAnimation() { //Could neaten this with animate()
 
-    //How could this animation be optimised? Are so many elements really needed?
 	$('.game_control').fadeOut(200); //Careful for doubleclicks - should build functionality to avoid
 	$('#play_lets').delay(200).fadeIn(500).delay(4360).fadeOut(500); // In at 500 Out at 10,000
 	$('#play5').delay(501).fadeIn(500).fadeOut(500); // In at 500 out at 2000
@@ -60,11 +51,11 @@ function countdownAnimation() {
 	$('#begun').delay(5560).fadeIn(1500); // in at 10,000 - Does not go out
 	$('#play_happening').delay(5570).fadeIn(1500); // in at 10,000 - Does not go out
 	$('.game_table').delay(5570).fadeIn(1500); // in at 10,000 - Does not go out
-    var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(currentPlayer + " It's your turn").fadeIn(100);
+    var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(app.currentPlayer + " It's your turn").fadeIn(100);
     $('.game_cell#3').prepend(currentPlayerDiv);
 	$('#home').delay(5570).fadeIn(1500);
 	$('#score').delay(5570).fadeIn(1500);
-    $('#play_is').append(startingPlayer); //Leave this as append
+    $('#play_is').append(app.startingPlayer); //Leave this as append
 	if (difficulty === "human") {
 		$('#title_score1').text("Human 1 Score");
 		$('#title_score2').text("Human 2 Score");
@@ -76,7 +67,7 @@ function countdownAnimation() {
 }
 
 
-function setUpBoard() { //How else could this be done more efficently?
+function setUpBoard() {
     var gameBoard = new Array(9);
     for (var i = 0; i < gameBoard.length; i++) {
         gameBoard[i] = null;
@@ -89,51 +80,51 @@ function who_starts() { //Could this be written shorter?
     var randomPlayer = Math.floor(Math.random() * 2 + 1);
     if (difficulty !== "human") {
         if (randomPlayer === 1) {
-            startingPlayer = "The Computer of Doom! (X)";
-            currentPlayer = 'X';
+            app.startingPlayer = "The Computer of Doom! (X)";
+            app.currentPlayer = 'X';
             AIPlay();
         } else {
-            startingPlayer = "The Human! (O)";
-            currentPlayer = 'O';
+            app.startingPlayer = "The Human! (O)";
+            app.currentPlayer = 'O';
         }
     } else {
         if (randomPlayer === 1) {
-            startingPlayer = "Human Number 1! (X)";
-            currentPlayer = 'X';
+            app.startingPlayer = "Human Number 1! (X)";
+            app.currentPlayer = 'X';
         } else {
-            startingPlayer = "Human Number 2! (O)";
-            currentPlayer = 'O';
+            app.startingPlayer = "Human Number 2! (O)";
+            app.currentPlayer = 'O';
         }
     }
 }
 
 
 function changePlayer() {
-    if (currentPlayer === 'X') {
-        currentPlayer = 'O';
+    if (app.currentPlayer === 'X') {
+        app.currentPlayer = 'O';
     } else {
-        currentPlayer = 'X';
+        app.currentPlayer = 'X';
     }
-    $('#whos_turn_is_it').text(currentPlayer + " It's your turn");
+    $('#whos_turn_is_it').text(app.currentPlayer + " It's your turn");
 }
 
 
 function changeStartingPlayer() {
-	if (startingPlayer === "The Computer of Doom! (X)") {
-	   startingPlayer = "The Human! (O)";
-	   currentPlayer = 'O';
+	if (app.startingPlayer === "The Computer of Doom! (X)") {
+	   app.startingPlayer = "The Human! (O)";
+	   app.currentPlayer = 'O';
     }
-    else if (startingPlayer === "The Human! (O)") {
-        startingPlayer = "The Computer of Doom! (X)";
-        currentPlayer = 'X';
+    else if (app.startingPlayer === "The Human! (O)") {
+        app.startingPlayer = "The Computer of Doom! (X)";
+        app.currentPlayer = 'X';
 	}
-    else if (startingPlayer === "Human Number 1! (X)") {
-        startingPlayer = "Human Number 2! (O)";
-        currentPlayer = 'O';
+    else if (app.startingPlayer === "Human Number 1! (X)") {
+        app.startingPlayer = "Human Number 2! (O)";
+        app.currentPlayer = 'O';
     }
-    else if (startingPlayer === "Human Number 2! (O)") {
-        startingPlayer = "Human Number 1! (X)";
-        currentPlayer = 'X';
+    else if (app.startingPlayer === "Human Number 2! (O)") {
+        app.startingPlayer = "Human Number 1! (X)";
+        app.currentPlayer = 'X';
     }
 }
 
@@ -142,8 +133,8 @@ function changeStartingPlayer() {
 function playerMove(IDOfCellClicked) {
     if (app.isRoundInProgress === true) {
         if (gameBoard[IDOfCellClicked] === null) { // checks if position on board has already been played
-            gameBoard[IDOfCellClicked] = currentPlayer; // UPDATING THE ARRAY
-            $('#' + IDOfCellClicked).prepend(currentPlayer);
+            gameBoard[IDOfCellClicked] = app.currentPlayer; // UPDATING THE ARRAY
+            $('#' + IDOfCellClicked).prepend(app.currentPlayer);
             app.turn++;
             if (checkForWin()) {
             	if (difficulty === "AICheater") {
@@ -187,11 +178,11 @@ function clearBoard() {
         $('#' + i).text('X').css('font-size', "25px");
     }
 	$('.game_table td').empty().css("background-color", "white"); //Clear the table visuals and cell highlighting
-    $('#play_is').text(startingPlayer + " will start this round.");
-    var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(currentPlayer + " It's your turn").fadeIn(100);
+    $('#play_is').text(app.startingPlayer + " will start this round.");
+    var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(app.currentPlayer + " It's your turn").fadeIn(100);
     $('.game_cell#3').prepend(currentPlayerDiv);
     $('#begun').text("The game continues! Round " + app.round);
-    if (currentPlayer === "X") {
+    if (app.currentPlayer === "X") {
         AIPlay();
     }
     console.log(app.turn);
@@ -202,21 +193,21 @@ function checkForWin() {
 
     // check col win
     for (var i = 0; i < 3; i++) {
-        if (gameBoard[i] === currentPlayer && gameBoard[i + 3] === currentPlayer && gameBoard[i + 6] === currentPlayer) {
+        if (gameBoard[i] === app.currentPlayer && gameBoard[i + 3] === app.currentPlayer && gameBoard[i + 6] === app.currentPlayer) {
             winningCells = [i, i+3, i+6]; //For CSS coloring
             return true;
         }
     }
     // check row win
     for (var j = 0; j < 9; j += 3) {
-        if (gameBoard[j] === currentPlayer && gameBoard[j + 1] === currentPlayer && gameBoard[j + 2] === currentPlayer) {
+        if (gameBoard[j] === app.currentPlayer && gameBoard[j + 1] === app.currentPlayer && gameBoard[j + 2] === app.currentPlayer) {
             winningCells = [j, j+1, j+2];
             return true;
         }
     }
     // check diagonal win
     for (var k = 0; k <= 2; k += 2) {
-        if (gameBoard[k] === currentPlayer && gameBoard[4] === currentPlayer && gameBoard[8 - k] === currentPlayer) {
+        if (gameBoard[k] === app.currentPlayer && gameBoard[4] === app.currentPlayer && gameBoard[8 - k] === app.currentPlayer) {
             winningCells = [k, 4, 8-k];
             return true;
         }
@@ -244,7 +235,7 @@ function roundDrew() {
 
 
 function roundWon() {
-    var wonDiv = $('<div>').attr('id', 'won').text(currentPlayer + " Takes The Round!").fadeIn(100);
+    var wonDiv = $('<div>').attr('id', 'won').text(app.currentPlayer + " Takes The Round!").fadeIn(100);
     $('.game_cell#5').append(wonDiv);
     console.log("winning cells where " + winningCells);
     updateScore();
@@ -263,10 +254,10 @@ function endRound(){
 
 
 function updateScore() {
-    if (currentPlayer === 'X') {
+    if (app.currentPlayer === 'X') {
         app.player1Score++;
         $('#score1').text(app.player1Score);
-    } else if (currentPlayer === 'O') {
+    } else if (app.currentPlayer === 'O') {
         app.player2Score++;
         $('#score2').text(app.player2Score);
     }
@@ -298,9 +289,9 @@ function isComputerAbleToWin () {
     //If the cell will cause a win return the id of that cell otherwise clear the cell.
     for (var x = 0; x < 9; x++) {
         if (gameBoard[x] === null) {
-            gameBoard[x] = currentPlayer;
+            gameBoard[x] = app.currentPlayer;
             if (checkForWin()) {
-                $('#' + x).prepend(currentPlayer);
+                $('#' + x).prepend(app.currentPlayer);
                 return true;
             }
             else {
@@ -317,7 +308,7 @@ function doesComputerNeedToBlock () {
     for (var p = 0; p < 9; p++) {
         changePlayer();
         if (gameBoard[p] === null) {
-            gameBoard[p] = currentPlayer;
+            gameBoard[p] = app.currentPlayer;
             if (checkForWin()) {
                 gameBoard[p] = null;
                 humanAbleToWinAt = p;
@@ -341,8 +332,8 @@ function playRandomly(){
     while(findingFreeCell) { //while works better than a for loop because the ending is uncertain.
         var randomMove = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
         if (gameBoard[randomMove] === null) {
-            gameBoard[randomMove] = currentPlayer; // Updating the array
-            $('#' + randomMove).prepend(currentPlayer);
+            gameBoard[randomMove] = app.currentPlayer; // Updating the array
+            $('#' + randomMove).prepend(app.currentPlayer);
             findingFreeCell = false;
             if (checkForWin()) {
                 roundWon();
@@ -374,8 +365,8 @@ function AIIntermediate() {
     }
     else if (doesComputerNeedToBlock()) {
         //computer plays in blocking cell
-        gameBoard[humanAbleToWinAt] = currentPlayer; // Updating the array
-        $('#' + humanAbleToWinAt).prepend(currentPlayer);
+        gameBoard[humanAbleToWinAt] = app.currentPlayer; // Updating the array
+        $('#' + humanAbleToWinAt).prepend(app.currentPlayer);
         console.log("computer played to block human win");
         changePlayer();
         if (checkForDraw()){ //In case computer draws whilist blocking human win
@@ -400,6 +391,7 @@ function getARandomOption(arrayOfOptions) {
 
 
 function AICheater() {
+    //This code is pretty long to make the computer try to cheat without the player noticing. It slowly gets more obvious :)
     if (isComputerAbleToWin()) {
         roundWon();
         console.log("computer played to win");
@@ -407,8 +399,8 @@ function AICheater() {
     }
     else if (doesComputerNeedToBlock()) {
         //computer plays in blocking cell
-        gameBoard[humanAbleToWinAt] = currentPlayer; // Updating the array
-        $('#' + humanAbleToWinAt).text(currentPlayer);
+        gameBoard[humanAbleToWinAt] = app.currentPlayer; // Updating the array
+        $('#' + humanAbleToWinAt).text(app.currentPlayer);
         console.log("computer played to block human win");
         changePlayer();
     }
@@ -487,159 +479,57 @@ function AICheater() {
     console.log(app.turn);
 }
 
+function AIHardDefending() {
+    console.log(app.turn);
+    //This is loaded when the computer plays 2nd. The computer is aiming to draw.
+    if (isComputerAbleToWin()) {
+        //computer plays in winning cell
+        roundWon();
+        console.log("computer played to win");
+    }
+    else if (doesComputerNeedToBlock()) {
+        //computer plays in blocking cell
+        gameBoard[humanAbleToWinAt] = app.currentPlayer; // Updating the array
+        $('#' + humanAbleToWinAt).prepend(app.currentPlayer);
+        console.log("computer played to block human win");
+        changePlayer();
+        if (checkForDraw()){ //Necessary in case computer draws whilist blocking human win
+          roundDrew();
+        }
+    }
+    else if (gameBoard[4] === null) {
+        gameBoard[4] = app.currentPlayer;
+        $('#' + 4).prepend(app.currentPlayer);
+        changePlayer();
+        console.log("Computer took the center to be defensive");
+    }
+    else if (gameBoard[2] === 'O' && gameBoard[6] === 'O' && app.turn === 3) { //prevents an incorrect corner play
+        gameBoard[3] = app.currentPlayer; //could use a randomizer here, could add to next else if
+        $('#' + 3).prepend(app.currentPlayer);
+        changePlayer();
+        console.log("Computer took 3 to prevent alt corn 2 way win");
+    }
+    else if (gameBoard[0] === 'O' && gameBoard[8] === 'O' && app.turn === 3) {
+        gameBoard[5] = app.currentPlayer;
+        $('#' + 5).prepend(app.currentPlayer);
+        changePlayer();
+        console.log("Computer took 5 to prevent alt corn 2 way win");
+    }
+    //can still lose if human takes center
+    else if (gameBoard[4] === 'O' && app.turn == 1) {
+        gameBoard[6] = app.currentPlayer;
+        $('#' + 6).prepend(app.currentPlayer);
+        changePlayer();
+        console.log("Computer took 6 to prevent middle triangle win");
+    }
+    else if (gameBoard[4] === 'O' && app.turn == 3) {
+        gameBoard[8] = app.currentPlayer;
+        $('#' + 8).prepend(app.currentPlayer);
+        changePlayer();
+        console.log("Computer took 8 to prevent middle triangle win");
+    }
+    else {
+        playRandomly();
+    }
 
-//  function AIHardDefending() {
-//     console.log(app.turn);
-//  //This is loaded when the computer plays 2nd. The computer is aiming to draw.
-//   if (isComputerAbleToWin()) {
-//         //computer plays in winning cell
-//       roundWon();
-//       console.log("computer played to win");
-//   }
-//   else if (doesComputerNeedToBlock()) {
-//       //computer plays in blocking cell
-//       gameBoard[humanAbleToWinAt] = currentPlayer; // Updating the array
-//       $('#' + humanAbleToWinAt).prepend(currentPlayer);
-//       console.log("computer played to block human win");
-//       changePlayer();
-//       if (checkForDraw()){ //Necessary in case computer draws whilist blocking human win
-//           roundDrew();
-//       }
-//   }
-//   else if (gameBoard[4] === null) {
-//     gameBoard[4] = currentPlayer;
-//     $('#' + 4).prepend(currentPlayer);
-//     changePlayer();
-//     console.log("Computer took the center to be defensive");
-//   }
-//   else if (app.turn == 2 && gameBoard[4] == 'O') {
-//     //Looking for if human going for 'type 1' two way win. Play any corner cell
-//     //var possibilities = [0,2,6,8];
-//     //var randomCorner = getARandomOption(possibilities);
-//     var randomCorner = 0; // TEMPORARY JUST TO GET IT WORKING
-//     $('#' + randomCorner).prepend(currentPlayer); //Add a randomizer here to occasionally play 5
-//     console.log("Computer played in a random corner to block a possible setup of a type 1 two way win");
-//     changePlayer();
-//   }
-//   else if ((app.turn == 4 && (gameBoard[0] == 'O' && (gameBoard[8] == 'O')) || (app.turn == 3 && gameBoard[2] == 'O' && gameBoard[6] == 'O'))){
-//     //Looking for if human going for 'type 2' two way win () (Two opposing corners)
-//     //var possibilities = [1,3,5,7];
-//     //var randomSide = getARandomOption(possibilities);
-//     var randomside = 3; //TEMPORARY TO GET WORKING
-//     $('#' + randomSide).prepend(currentPlayer); //Add a randomizer here to occasionally play 5
-//     console.log("Computer played T4 to block a possible setup of a type 2 two way win");
-//     changePlayer();
-//   }
-//  // else if (app.turn == 4 && gameBoard[0] == 'O' && gameBoard[8] == 'O') {
-//  //    Looking for if human going for 'type 3' two way win. (A corner wtih a middle 3 units away)
-//  //    This gets complex as there are 8 scenarios to consider all leading to two way wins
-//     else {
-//         playRandomly();
-//     }
-// }
-
-// NOTATION
-// TURN 2
-// Type 1 - Occurs where center is taken on turn 1
-// Computer must play a corner or is open to a two way win. Plays any of the 4 corners.
-// TURN 4
-// //  Type2 two way win => Occurs where the opposite corners are taken on the 3rd turn
-// //  Type3 two way win => Occurs where a corner is taken as well as the opposite side
-// //  All other winning types are blocked by intermediate level play
-// Each different scenario has diferent 'safe cells'
-
-
-
-
-// function AI_hard_agressive() {
-// //This is loaded when the computers turn is first. The computer aims to setup moves were the player will lose.
-//     if (isComputerAbleToWin()) {
-//         //computer plays in winning cell
-//         roundWon();
-//         console.log("computer played to win");
-//     }
-//     else if (doesComputerNeedToBlock()) {
-//         //computer plays in blocking cell
-//         gameBoard[humanAbleToWinAt] = currentPlayer; // Updating the array
-//         $('#' + humanAbleToWinAt).prepend(currentPlayer);
-//         console.log("computer played to block human win");
-//         changePlayer();
-//         if (checkForDraw()){ //Necessary in case computer draws whilist blocking human win
-//             roundDrew();
-//         }
-//     }
-//     else if (app.turn === 1) {
-//         var possibilities = [0, 0, 0, 1, 2, 2, 2, 3, 4, 4, 4, 4, 5, 6, 6, 7, 7, 8, 8, 8];
-//         // Using weighting to make a center or corner play more likely => greater chance of winning :)
-//         var AIPlayingAt = getARandomOption(possibilities)
-//         gameBoard[AIPlayingAt] = currentPlayer;
-//         $('#' + AIPlayingAt).prepend(currentPlayer);
-//         console.log("Computer made a weighted play to play at cell " + AIPlayingAt);
-//     }
-//     else if (app.turn === 3 && (gameBoard[1] == 'O' || gameBoard[3] == 'O' || gameBoard[5] == 'O' || gameBoard[7] == 'O')) { //THIS SYNTAX IS INCORRECT
-//         // The player was silly and played in a side cell
-//         var possibilities = [];
-//         var AIPlayingAt = getARandomOption(possibilities)
-//         gameBoard[AIPlayingAt] = currentPlayer;
-//         $('#' + AIPlayingAt).prepend(currentPlayer);
-//         console.log("Computer made a weighted play to play at cell " + AIPlayingAt);
-//     }
-
-
-
-
-//     //var randomMove = Math.floor(Math.random() * 3); // The computer has 3 possible opening moves which are then rotated by a 25 degrees leading to 12 possible opening plays
-
-//     // TURN 1
-
-//     // Option 1-1 - COMPUTER PLAYER A CORNER CELL
-//     // Option 1-2 - COMPUTER PLAYS A SIDE CELL
-//     // Option 1-3 - COMPUTER PLAYS IN MIDDLE
-//     //var random_orientation = Math.floor(Math.random() * 4); // After finding out what type of cell to play. Then randomly orient the play
-//     //if (randomMove = 1) {
-
-//     // TURN 3
-
-//     //IF TURN 1 = OPTION 1
-
-//         //OPTION 1-1 - The computer will play in the center(Preferenced)
-//         //OPTION 1-2 - The computer will play either the side cell which is 3 units ahead of the current cell (Attempting to force a 2 way win situation) OR
-//         //OPTION 1-3 - The computer plays in the opposite corner - Again attempting to try to force a 2 way win situation.
-//         // NOTE - The computer does not play turn 2 in either of the matching side cells. This is considered a poor move (As their is less opportunity to win)
-//         // Likewise playing either side cell next to the played corner cell is also considered a poor move.
-
-//     // IF TURN 1 = OPTION 2
-
-//     //OPTION (T3)2-1 - The computer takes the center (Preferenced)
-//     //OPTION (T3)2-2 - The computer takes a corner cell which must be on the opposite side of the board. There are two of these.
-
-//     // IF TURN 1 = OPTION 3
-
-//     // OPTION (T3)3-1 - The computer takes any free corner. There are 4.
-//     // Playing a side cell is considered a poor move.
-
-
-//     // TURN 5
-
-//     // The computer attempts a win (Preferenced)
-//     // The computer blocks a player win (2nd preferenced)
-
-// // OTHER SCENARIOS
-
-// // Has side and corner. if player plays in cells +1 or +2 of the corner cell the computer forces a two way win by playing -1 from the it's middle cell.
-// // HAS side and corner. Only 2 more situations exist which are player played in cells -1 or +1 of middle cell. No win is possible. Random play
-
-// // Has corner and corner. The computer simply blocks any win condition of the player. The player will have win conditions in all directions. The computer must block them. If this leads to a corner play the
-// // computer will win on TURN 7
-
-// // Has corner and middle but can't win. The computer blocks any player win if it has to.
-// //After this there are 2 cells. They are -3 or + 1 of the corner cell. Playing either will result in a 2 way win condition.
-
-// // TURN 7
-// // Attempts win. Blocks losss. If none is possible then random play as game will draw no matter what is played.
-
-// //TURN 9
-
-// // Very simple. The computer plays the remaining cell.
-
-// }
+}
