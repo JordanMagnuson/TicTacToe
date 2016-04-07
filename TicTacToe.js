@@ -4,7 +4,7 @@ $(document).ready(function() {
     gameBoard = setUpBoard();
     $('.game_options td').click(function(e) {
         if (app.gameOptionsAlreadyclicked === false) { //prevents a rare bug if gameoptions is dblclicked
-            difficulty = e.target.id;
+            difficulty = e.target.id; //find the child of the clicked parent
             who_starts();
             gameLoadAnimation();
             setupScoreBoard();
@@ -34,29 +34,25 @@ app.player1Score = 0;
 app.player2Score = 0;
 app.isRoundInProgress = true;
 app.gameOptionsAlreadyclicked = false;
+//App is designed to allow 'class' type variables to minimise the need for unnecessary parameter passing.
 
 function gameLoadAnimation() {
 
     //This displays all the elements via a fadeIn effect. 
-    //The fadeIn for most elements is after a 5 second countdown
     $('.game_control').fadeOut(200);
 
-    $('#play_lets').delay(200).fadeIn(500).delay(4360).fadeOut(500); 
+    var countDownFrom = 5;
+    var countDown = setInterval(function(){ 
+    $('#play5').text(countDownFrom + "...").fadeIn(500).fadeOut(500); 
+    countDownFrom--;
+    if (countDownFrom <= 0) {
+        clearTimeout(countDown);
+    }
+    }, 1000);
 	
-    $('#play5').delay(501).fadeIn(500).fadeOut(500); 
-	$('#play4').delay(1520).fadeIn(500).fadeOut(500); 
-	$('#play3').delay(2530).fadeIn(500).fadeOut(500); 
-	$('#play2').delay(3540).fadeIn(500).fadeOut(500); 
-	$('#play1').delay(4550).fadeIn(500).fadeOut(500); 
-	
-    $('#play_is').delay(5560).fadeIn(500); 
-	$('#begun').delay(5560).fadeIn(1500); 
-	$('#play_happening').delay(5570).fadeIn(1500);
-	$('.game_table').delay(5570).fadeIn(1500); 
-	$('#home').delay(5570).fadeIn(1500);
-	$('#score').delay(5570).fadeIn(1500);
-    $('#play_is').append(startingPlayer);
-
+    $('#play_lets').delay(200).fadeIn(500).delay(5360).fadeOut(500);
+    $('#play_is').delay(6560).fadeIn(500).append(startingPlayer);
+	$('#begun, #play_happening, .game_table, #home, #score').delay(6560).fadeIn(1500); 
     var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(currentPlayer + " It's your turn").fadeIn(100);
     $('.game_cell#3').prepend(currentPlayerDiv);
 }
@@ -74,7 +70,7 @@ function playerMove(IDOfCellClicked) {
                      // Just some fun code for if the player manages to beat the cheating AI
                     for (var i = 0; i < 9; i++) {
                         gameBoard[i] = 'X';
-                        $('#' + i).text('X').css('font-size', "45px");
+                        $('#' + i).text('X').css('font-size', "45px").css('background-color', "red");
                         }
                         changePlayer();
                         roundWon();
@@ -130,6 +126,7 @@ function changePlayer() {
     $('#whos_turn_is_it').text(currentPlayer + " It's your turn");
 }
 
+
 function who_starts() { 
     var randomPlayer = Math.floor(Math.random() * 2 + 1);
     if (difficulty !== "human") {
@@ -180,10 +177,6 @@ function clearBoard() {
     app.isRoundInProgress = true;
 	changeStartingPlayer();
 	$('#play_again').fadeOut(1000);
-    for (var i = 0; i < 9; i++) { 
-        gameBoard[i] = null;
-        $('#' + i).text('X').css('font-size', "25px"); // remove coloring on winning cells
-    }
 	$('.game_table td').empty().css("background-color", "white"); //Clear the table visuals and cell highlighting
     $('#play_is').text(startingPlayer + " will start this round.");
     var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(currentPlayer + " It's your turn").fadeIn(100);
@@ -191,6 +184,10 @@ function clearBoard() {
     $('#begun').text("The game continues! Round " + app.round);
     if (currentPlayer === "X") {
         AIPlay();
+    }
+    for (var i = 0; i < 9; i++) { 
+        gameBoard[i] = null;
+        $('#' + i).text('X').css('font-size', "25px"); // remove coloring on winning cells
     }
 }
 
@@ -234,6 +231,8 @@ function checkForDraw() {
 
 
 function roundDrew() {
+    var wonDiv = $('<div>').attr('id', 'won').text("It's a draw!").fadeIn(100);
+    $('.game_cell#5').append(wonDiv);   
     endRound();
 }
 
@@ -252,8 +251,6 @@ function endRound(){
     $('#whos_turn_is_it').fadeOut(0);
     app.isRoundInProgress = false;
     $('#play_again').fadeIn(1500);
-    var wonDiv = $('<div>').attr('id', 'won').text("It's a draw!").fadeIn(100);
-    $('.game_cell#5').append(wonDiv);
 }
 
 
@@ -266,7 +263,6 @@ function updateScore() {
         $('#score2').text(app.player2Score);
     }
 }
-
 
 //BELOW HERE IS THE AI CODE
 
@@ -289,7 +285,7 @@ function AIPlay() {
 
 function isComputerAbleToWin () {
     //The computer plays in any open cell. It then checks if that cell will cause it to win.
-    //If the cell will cause a win return the id of that cell otherwise clear the cell.
+    //If the cell will cause a win return the id of that cell.
     for (var x = 0; x < 9; x++) {
         if (gameBoard[x] === null) {
             gameBoard[x] = currentPlayer;
@@ -305,9 +301,10 @@ function isComputerAbleToWin () {
     return false;
 }
 
+
 function doesComputerNeedToBlock () {
     //The computer plays as the human in any open cell. It then checks if that cell will cause a human win.
-    //If the cell will cause a human win return the id of that cell. Then clear the cell.
+    //If the cell will cause a human win return the id of that cell. 
     for (var p = 0; p < 9; p++) {
         changePlayer();
         if (gameBoard[p] === null) {
@@ -351,6 +348,19 @@ function playRandomly(){
 }
 
 
+function getARandomOption(arrayOfOptions) {
+  //This function is used to randomise a selection of possible moves for the AI
+    for (var i = arrayOfOptions.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = arrayOfOptions[i];
+        arrayOfOptions[i] = arrayOfOptions[j];
+        arrayOfOptions[j] = temp;
+    }
+    return arrayOfOptions[0];
+}
+
+
+
 function AIEasy() {
     if (isComputerAbleToWin()) {
         roundWon();
@@ -365,14 +375,13 @@ function AIEasy() {
 function AIIntermediate() {
     if (isComputerAbleToWin()) {
         roundWon();
-        console.log("computer played to win");
+        console.log("Computer played to win");
     }
     else if (doesComputerNeedToBlock()) {
-        //computer plays in blocking cell
         gameBoard[humanAbleToWinAt] = currentPlayer; // Updating the array
         $('#' + humanAbleToWinAt).prepend(currentPlayer);
-        console.log("computer played to block human win");
         changePlayer();
+        console.log("Computer played to block human win");
         if (checkForDraw()){ //In case computer draws whilist blocking human win
             roundDrew();
         }
@@ -383,29 +392,17 @@ function AIIntermediate() {
 }
 
 
-function getARandomOption(arrayOfOptions) {
-  //This function is used to randomise a selection of possible moves for the AI
-    for (var i = arrayOfOptions.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = arrayOfOptions[i];
-        arrayOfOptions[i] = arrayOfOptions[j];
-        arrayOfOptions[j] = temp;
-    }
-    return arrayOfOptions[0];
-}
-
-
 function AICheater() {
     //This mode is just for a bit of fun. Hard coded lots of scenarios designed to make it rather 
-    //frustrating for the player! The computer often plays twice but tries to do it subtly
+    //frustrating for the player! The computer often plays twice but tries or might just steal your piece! 
+    //It tries to cheat subtly and will often play twice if the player has a 2 win scenario.
     if (isComputerAbleToWin()) {
         roundWon();
         console.log("computer played to win");
         return;
     }
     else if (doesComputerNeedToBlock()) {
-        //computer plays in blocking cell
-        gameBoard[humanAbleToWinAt] = currentPlayer; // Updating the array
+        gameBoard[humanAbleToWinAt] = currentPlayer; 
         $('#' + humanAbleToWinAt).text(currentPlayer);
         console.log("computer played to block human win");
         changePlayer();
@@ -414,9 +411,9 @@ function AICheater() {
         playRandomly();
     }
     if (doesComputerNeedToBlock() && app.turn > 5) {
-        //computer plays in blocking cell
+        //If after turn 5 the computer will block twice in a row if it needs to!
         changePlayer();
-        gameBoard[humanAbleToWinAt] = 'X'; // Updating the array
+        gameBoard[humanAbleToWinAt] = 'X'; 
         $('#' + humanAbleToWinAt).text('X');
         console.log("The human is attempting a 2 way win - Computer cheated to block it");
         changePlayer();
@@ -471,7 +468,7 @@ function AICheater() {
     }
     else if (checkForDraw() && app.round >10){
         for (var i = 0; i < 9; i++) {
-            gameBoard[i] = 'X'; // Take all the cells
+            gameBoard[i] = 'X'; // Take all the cells if more than 10 rounds played
             $('#' + i).text('X');
         }
         roundWon();
@@ -489,8 +486,8 @@ function AICheater() {
 
  function AIHardDefending() {
     console.log(app.turn);
-    //The AI hard is almost perfect. Considering using min-max instead. This code is very scenario specific.
-    //This is loaded when the computer plays 2nd. The computer is aiming to draw.
+    //The AI hard is almost impossible to beat. Considering using min-max instead. 
+    //This code is very scenario specific and very hard-coded.
     //This is alpha code.
     if (isComputerAbleToWin()) {
         roundWon();
