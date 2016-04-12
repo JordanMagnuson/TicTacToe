@@ -38,21 +38,21 @@ app.gameOptionsAlreadyclicked = false;
 
 function gameLoadAnimation() {
 
-    //This displays all the elements via a fadeIn effect. 
+    //This displays all the elements via a fadeIn effect.
     $('.game_control').fadeOut(200);
 
     var countDownFrom = 5;
-    var countDown = setInterval(function(){ 
-    $('#play5').text(countDownFrom + "...").fadeIn(500).fadeOut(500); 
+    var countDown = setInterval(function(){
+    $('#play5').text(countDownFrom + "...").fadeIn(500).fadeOut(500);
     countDownFrom--;
     if (countDownFrom <= 0) {
         clearTimeout(countDown);
     }
     }, 1000);
-	
+
     $('#play_lets').delay(200).fadeIn(500).delay(5360).fadeOut(500);
     $('#play_is').delay(6560).fadeIn(500).append(startingPlayer);
-	$('#begun, #play_happening, .game_table, #home, #score').delay(6560).fadeIn(1500); 
+	$('#begun, #play_happening, .game_table, #home, #score').delay(6560).fadeIn(1500);
     var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(currentPlayer + " It's your turn").fadeIn(100);
     $('.game_cell#3').prepend(currentPlayerDiv);
 }
@@ -61,7 +61,7 @@ function gameLoadAnimation() {
 function playerMove(IDOfCellClicked) {
     if (app.isRoundInProgress === true) {
         // Play in the clicked cell as long as it hasn't been played in before
-        if (gameBoard[IDOfCellClicked] === null) { 
+        if (gameBoard[IDOfCellClicked] === null) {
             gameBoard[IDOfCellClicked] = currentPlayer;
             $('#' + IDOfCellClicked).prepend(currentPlayer);
             app.turn++;
@@ -86,7 +86,7 @@ function playerMove(IDOfCellClicked) {
             else {
                 changePlayer();
                 //Player locked out from playing during delay for AI play
-                app.isRoundInProgress = false; 
+                app.isRoundInProgress = false;
                 setTimeout(function() {
                 app.isRoundInProgress = true;
                 AIPlay();
@@ -127,7 +127,7 @@ function changePlayer() {
 }
 
 
-function who_starts() { 
+function who_starts() {
     var randomPlayer = Math.floor(Math.random() * 2 + 1);
     if (difficulty !== "human") {
         if (randomPlayer === 1) {
@@ -185,7 +185,7 @@ function clearBoard() {
     if (currentPlayer === "X") {
         AIPlay();
     }
-    for (var i = 0; i < 9; i++) { 
+    for (var i = 0; i < 9; i++) {
         gameBoard[i] = null;
         $('#' + i).text('X').css('font-size', "25px"); // remove coloring on winning cells
     }
@@ -232,7 +232,7 @@ function checkForDraw() {
 
 function roundDrew() {
     var wonDiv = $('<div>').attr('id', 'won').text("It's a draw!").fadeIn(100);
-    $('.game_cell#5').append(wonDiv);   
+    $('.game_cell#5').append(wonDiv);
     endRound();
 }
 
@@ -304,7 +304,7 @@ function isComputerAbleToWin () {
 
 function doesComputerNeedToBlock () {
     //The computer plays as the human in any open cell. It then checks if that cell will cause a human win.
-    //If the cell will cause a human win return the id of that cell. 
+    //If the cell will cause a human win return the id of that cell.
     for (var p = 0; p < 9; p++) {
         changePlayer();
         if (gameBoard[p] === null) {
@@ -330,7 +330,7 @@ function doesComputerNeedToBlock () {
 function playRandomly(){
     var findingFreeCell = true;
     while(findingFreeCell) { //while used as ending is uncertain
-        var randomMove = Math.floor(Math.random() * 9); 
+        var randomMove = Math.floor(Math.random() * 9);
         if (gameBoard[randomMove] === null) {
             gameBoard[randomMove] = currentPlayer;
             $('#' + randomMove).prepend(currentPlayer);
@@ -393,8 +393,8 @@ function AIIntermediate() {
 
 
 function AICheater() {
-    //This mode is just for a bit of fun. Hard coded lots of scenarios designed to make it rather 
-    //frustrating for the player! The computer often plays twice but tries or might just steal your piece! 
+    //This mode is just for a bit of fun. Hard coded lots of scenarios designed to make it rather
+    //frustrating for the player! The computer often plays twice but tries or might just steal your piece!
     //It tries to cheat subtly and will often play twice if the player has a 2 win scenario.
     if (isComputerAbleToWin()) {
         roundWon();
@@ -402,7 +402,7 @@ function AICheater() {
         return;
     }
     else if (doesComputerNeedToBlock()) {
-        gameBoard[humanAbleToWinAt] = currentPlayer; 
+        gameBoard[humanAbleToWinAt] = currentPlayer;
         $('#' + humanAbleToWinAt).text(currentPlayer);
         console.log("computer played to block human win");
         changePlayer();
@@ -413,7 +413,7 @@ function AICheater() {
     if (doesComputerNeedToBlock() && app.turn > 5) {
         //If after turn 5 the computer will block twice in a row if it needs to!
         changePlayer();
-        gameBoard[humanAbleToWinAt] = 'X'; 
+        gameBoard[humanAbleToWinAt] = 'X';
         $('#' + humanAbleToWinAt).text('X');
         console.log("The human is attempting a 2 way win - Computer cheated to block it");
         changePlayer();
@@ -472,7 +472,7 @@ function AICheater() {
             $('#' + i).text('X');
         }
         roundWon();
-        alert("Muhahahaa FOR NO REASON AT ALL - I DECIDE TO WIN!"); 
+        alert("Muhahahaa FOR NO REASON AT ALL - I DECIDE TO WIN!");
     }
     changePlayer();
     if (checkForWin()) { //if human can win then the AI just wins
@@ -486,7 +486,7 @@ function AICheater() {
 
  function AIHardDefending() {
     console.log(app.turn);
-    //The AI hard is almost impossible to beat. Considering using min-max instead. 
+    //The AI hard is almost impossible to beat. Considering using min-max instead.
     //This code is very scenario specific and very hard-coded.
     //This is alpha code.
     if (isComputerAbleToWin()) {
@@ -494,11 +494,11 @@ function AICheater() {
         console.log("computer played to win");
     }
     else if (doesComputerNeedToBlock()) {
-        app.gameBoard[humanAbleToWinAt] = currentPlayer; 
+        app.gameBoard[humanAbleToWinAt] = currentPlayer;
         $('#' + humanAbleToWinAt).prepend(currentPlayer);
         console.log("computer played to block human win");
         changePlayer();
-        if (checkForDraw()){ 
+        if (checkForDraw()){
             roundDrew();
         }
     }

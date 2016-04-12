@@ -26,9 +26,9 @@ header {
 	font-size: 40px;
   margin: 0 auto;
  }
- 
+
 .game_control h1 {
-	font-family: Impact;
+	font-family: Lato, Impact, Arial;
 	display:block;
 	margin-top:70px;
 	margin-bottom:2%;
@@ -119,7 +119,7 @@ header {
 	width: 120px;
 	height: 120px;
 	cursor:pointer;
-	position:relative;	
+	position:relative;
 }
 
 
@@ -138,7 +138,7 @@ header {
   line-height: 120px;
 	font-size: 20px;
 	width:250px;
-	font-family:fantasy;
+	font-family:Lato, Impact, Arial;
 	text-align: left;
 	padding-left: 13px;
 	cursor: default;
@@ -152,7 +152,7 @@ header {
   line-height: 120px;
 	font-size: 20px;
 	width:200px;
-	font-family:fantasy;
+	font-family:Lato, Impact, Arial;
 }
 
 
@@ -177,7 +177,7 @@ header {
 .imageAndPrize{
 	margin:0 auto;
 	width: 70%;
-	font-family: fantasy;
+	font-family: Lato, Impact, Arial;
 	font-size: 27px;
 	margin-left:20%;
 }
@@ -199,7 +199,7 @@ header {
  	margin-top:2.5%;
  	font-size:25px;
  }
- 
+
 .game_table_div {
 	width:370px;
 	height:370px;
@@ -217,4 +217,3 @@ footer {
 	padding-top: .6%;
 	padding-bottom: .6%;
 }
-
