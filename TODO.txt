@@ -1,20 +1,21 @@
 TO DO SOON
 
-ADVANCED AI
+ADVANCED AGGRESSIVE AI
+Optimise animation
 ADVANCED DEFENSIVE AI
-Code could still use some DRYing. 
+Readme in Markup.
+
 
 
 TO DO LATER
 
-MAKE PAGE RESPONSIVE -> In progress. Most sized screens now work well. Make it work on a mobile. Appending or prepending elements such that they don’t overlap. Minimal pos absolute usage. -> Mostly done -  Score is still pos absolute. Need to update this.
+MAKE PAGE RESPONSIVE - LOOKS TERRIBLE ON DIFFERENT RESOLUTIONS >> In progress. Most sized screens now work well. Appending or prepending elements such that they don’t overlap. Minimal pos absolute usage. Score is still pos absolute. Need to update this.
 
 KNOWN ISSUES
 
 2 - GLOBAL VARIABLE USE - In progress via object app. 
 
 Done
-Optimise animation - done - 1 slight delay issue
 5* - WHAT IF 2 WINS AT SAME TIME? >> Resolved via return to end function
 1 - BUG SCOREBOARD SAYS COMP VERSING HUMAN - fixed
 2- Cheating computer

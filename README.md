@@ -1,6 +1,6 @@
-**THE ORIGINAL TICTACTOE GAME BROUGHT BACK TO LIFE.** 
+**The original Tic Tac Toe game bought back to life.**
 
-Play veruses a human or 3 levels of AI. Beat the Boss level in a match to 3 rounds and I'll will give you $1000*!
+Play veruses a human or 3 levels of AI. Beat the Boss level in a match to 3 rounds and we will give you $1000*!
 
 Beat the hard level in a match to 3 rounds and I'll be very impressed but won't give you any money! :P
 
@@ -8,16 +8,14 @@ For a bit of a laugh or to make someone a little frustrated click the ? button a
 
 Built in JavaScript/Jquery with an interactive front-end interface. 
 
-*Only applies after the AI is finished :). 
 
 **HOW TO RUN**
 
-It's now hosted thanks to github pages!
+To run the program just visit the site
 
 http://ashley-pettit.github.io/TicTacToe/
 
 *No code tampering or exploiting bugs!
-*Thanks to General Assembly for the project!
 
 ![Example of Gameplay](https://github.com/Ashley-Pettit/TicTacToe/blob/master/Images/TicTacToe.png?raw=true"")
 

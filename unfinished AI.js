@@ -1,5 +1,16 @@
 
-
+        // var findingFreeCell = true;
+        // while(findingFreeCell === true)
+        //     var options = [0,2,6,8];
+        //     var computerToPlayAt = getARandomOption(options);
+        //     if (gameBoard(computerToPlayAt) === null) {
+        //         gameBoard[computerToPlayAt] = app.currentPlayer;
+        //         $('#' + computerToPlayAt).prepend(app.currentPlayer);
+        //         changePlayer();
+        //         console.log("Computer took a random corner to prevent middle triangle win");
+        //         findingFreeCell = false;
+        //     }
+        //     
 //  function AIHardDefending() {
 //     console.log(app.turn);
 //  //This is loaded when the computer plays 2nd. The computer is aiming to draw.
@@ -10,39 +21,39 @@
 //   }
 //   else if (doesComputerNeedToBlock()) {
 //       //computer plays in blocking cell
-//       app.gameBoard[humanAbleToWinAt] = currentPlayer; // Updating the array
-//       $('#' + humanAbleToWinAt).prepend(currentPlayer);
+//       gameBoard[humanAbleToWinAt] = app.currentPlayer; // Updating the array
+//       $('#' + humanAbleToWinAt).prepend(app.currentPlayer);
 //       console.log("computer played to block human win");
 //       changePlayer();
 //       if (checkForDraw()){ //Necessary in case computer draws whilist blocking human win
 //           roundDrew();
 //       }
 //   }
-//   else if (app.gameBoard[4] === null) {
-//     app.gameBoard[4] = currentPlayer;
-//     $('#' + 4).prepend(currentPlayer);
+//   else if (gameBoard[4] === null) {
+//     gameBoard[4] = app.currentPlayer;
+//     $('#' + 4).prepend(app.currentPlayer);
 //     changePlayer();
 //     console.log("Computer took the center to be defensive");
 //   }
-//   else if (app.turn == 2 && app.gameBoard[4] == 'O') {
+//   else if (app.turn == 2 && gameBoard[4] == 'O') {
 //     //Looking for if human going for 'type 1' two way win. Play any corner cell
 //     //var possibilities = [0,2,6,8];
 //     //var randomCorner = getARandomOption(possibilities);
 //     var randomCorner = 0; // TEMPORARY JUST TO GET IT WORKING
-//     $('#' + randomCorner).prepend(currentPlayer); //Add a randomizer here to occasionally play 5
+//     $('#' + randomCorner).prepend(app.currentPlayer); //Add a randomizer here to occasionally play 5
 //     console.log("Computer played in a random corner to block a possible setup of a type 1 two way win");
 //     changePlayer();
 //   }
-//   else if ((app.turn == 4 && (app.gameBoard[0] == 'O' && (app.gameBoard[8] == 'O')) || (app.turn == 3 && app.gameBoard[2] == 'O' && app.gameBoard[6] == 'O'))){
+//   else if ((app.turn == 4 && (gameBoard[0] == 'O' && (gameBoard[8] == 'O')) || (app.turn == 3 && gameBoard[2] == 'O' && gameBoard[6] == 'O'))){
 //     //Looking for if human going for 'type 2' two way win () (Two opposing corners)
 //     //var possibilities = [1,3,5,7];
 //     //var randomSide = getARandomOption(possibilities);
 //     var randomside = 3; //TEMPORARY TO GET WORKING
-//     $('#' + randomSide).prepend(currentPlayer); //Add a randomizer here to occasionally play 5
+//     $('#' + randomSide).prepend(app.currentPlayer); //Add a randomizer here to occasionally play 5
 //     console.log("Computer played T4 to block a possible setup of a type 2 two way win");
 //     changePlayer();
 //   }
-//  // else if (app.turn == 4 && app.gameBoard[0] == 'O' && app.gameBoard[8] == 'O') {
+//  // else if (app.turn == 4 && gameBoard[0] == 'O' && gameBoard[8] == 'O') {
 //  //    Looking for if human going for 'type 3' two way win. (A corner wtih a middle 3 units away)
 //  //    This gets complex as there are 8 scenarios to consider all leading to two way wins
 //     else {
@@ -72,8 +83,8 @@
 //     }
 //     else if (doesComputerNeedToBlock()) {
 //         //computer plays in blocking cell
-//         app.gameBoard[humanAbleToWinAt] = currentPlayer; // Updating the array
-//         $('#' + humanAbleToWinAt).prepend(currentPlayer);
+//         gameBoard[humanAbleToWinAt] = app.currentPlayer; // Updating the array
+//         $('#' + humanAbleToWinAt).prepend(app.currentPlayer);
 //         console.log("computer played to block human win");
 //         changePlayer();
 //         if (checkForDraw()){ //Necessary in case computer draws whilist blocking human win
@@ -84,16 +95,16 @@
 //         var possibilities = [0, 0, 0, 1, 2, 2, 2, 3, 4, 4, 4, 4, 5, 6, 6, 7, 7, 8, 8, 8];
 //         // Using weighting to make a center or corner play more likely => greater chance of winning :)
 //         var AIPlayingAt = getARandomOption(possibilities)
-//         app.gameBoard[AIPlayingAt] = currentPlayer;
-//         $('#' + AIPlayingAt).prepend(currentPlayer);
+//         gameBoard[AIPlayingAt] = app.currentPlayer;
+//         $('#' + AIPlayingAt).prepend(app.currentPlayer);
 //         console.log("Computer made a weighted play to play at cell " + AIPlayingAt);
 //     }
-//     else if (app.turn === 3 && (app.gameBoard[1] == 'O' || app.gameBoard[3] == 'O' || app.gameBoard[5] == 'O' || app.gameBoard[7] == 'O')) { //THIS SYNTAX IS INCORRECT
+//     else if (app.turn === 3 && (gameBoard[1] == 'O' || gameBoard[3] == 'O' || gameBoard[5] == 'O' || gameBoard[7] == 'O')) { //THIS SYNTAX IS INCORRECT
 //         // The player was silly and played in a side cell
 //         var possibilities = [];
 //         var AIPlayingAt = getARandomOption(possibilities)
-//         app.gameBoard[AIPlayingAt] = currentPlayer;
-//         $('#' + AIPlayingAt).prepend(currentPlayer);
+//         gameBoard[AIPlayingAt] = app.currentPlayer;
+//         $('#' + AIPlayingAt).prepend(app.currentPlayer);
 //         console.log("Computer made a weighted play to play at cell " + AIPlayingAt);
 //     }
 

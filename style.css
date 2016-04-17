@@ -16,23 +16,22 @@ body {
 }
 
 header {
-	position: absolute;
+	position: relative;
 	display:block;
 	left: 0;
   top: 0;
   width: 100%;
 	background-color:teal;
 	color:white;
-	font-size: 40px;
+	font-size: 3em;
   margin: 0 auto;
  }
 
 .game_control h1 {
-	font-family: Lato, Impact, Arial;
-	display:block;
-	margin-top:70px;
-	margin-bottom:2%;
-	font-size:24px;
+	font-family: Lato, fantasy, Impact, Arial;
+	font-weight: bold;
+	margin-top:1.9%;
+	font-size:1.9em;
 }
 
 .game_options {
@@ -41,16 +40,16 @@ header {
 	margin: 0 auto;
 	margin-bottom:1%;
 	margin-top:1%;
-	border-spacing: 10px;
+	border-spacing: .6em;
 	border-collapse: separate;
 }
 
 .game_options td {
-	border-radius: 7px;
+	border-radius: 11px;
 	text-align: center;
-	padding:5px;
-	min-width: 100px;
-	border-spacing: 7px;
+	padding:.2em;
+	min-width: 10em;
+	border-spacing: .3em;
 	cursor: pointer;
 	font-size:13px;
 }
@@ -84,15 +83,16 @@ header {
 .game_in_play {
 	margin: 0 auto;
 	width: 60%;
-	margin-top:70px;
+	margin-top:1.8%;
 	margin-bottom:3%;
 	text-align:center;
+	display:none;
 }
 
 .game_in_play div {
 	margin: 0 auto;
 	margin-top: 2%;
-	font-size: 20px;
+	font-size: 1.2em;
 	text-align: center;
 }
 
@@ -105,7 +105,7 @@ header {
 	margin: 0 auto;
 	display:none;
 	width: 100%;
-	margin-top:5%;
+	margin-top:3%;
 }
 
 .game_table td {
@@ -115,7 +115,7 @@ header {
 	text-align: center;
 	border-color: black;
 	margin-top: 2%;
-	font-size: 20px;
+	font-size: 1.2em;
 	width: 120px;
 	height: 120px;
 	cursor:pointer;
@@ -130,29 +130,28 @@ header {
  	font-weight:bold;
  }
 
+#whos_turn_is_it {
+	position: absolute;
+	right: 100%;
+  top: 0%;
+  line-height: 120px;
+	font-size: .9em;
+	width:9em;
+	font-family: fantasy, Lato, Impact, Arial;
+}
+
 
 #won {
 	position: absolute;
   left: 100%;
   top: 0%;
   line-height: 120px;
-	font-size: 20px;
-	width:250px;
-	font-family:Lato, Impact, Arial;
+	font-size: .9em;
+	width:9em;
+	font-family: fantasy, Lato, Impact, Arial;
 	text-align: left;
 	padding-left: 13px;
 	cursor: default;
-}
-
-
-#whos_turn_is_it {
-	position: absolute;
-	right: 100%;
-  top: 0%;
-  line-height: 120px;
-	font-size: 20px;
-	width:200px;
-	font-family:Lato, Impact, Arial;
 }
 
 
@@ -160,7 +159,7 @@ header {
 	position: fixed;
 	left:77%;
 	top:12%;
-	font-size: 13px;
+	font-size: 1em;
 	text-align: center;
 	float:right;
 }
@@ -169,16 +168,16 @@ header {
 	border-style: solid;
 	border-width: 2px;
 	border-color: black;
-	padding:8px;
-	font-size:14px;
+	padding:.5em;
+	font-size:1em;
 }
 
 
 .imageAndPrize{
 	margin:0 auto;
 	width: 70%;
-	font-family: Lato, Impact, Arial;
-	font-size: 27px;
+	font-family: fantasy, Lato, Impact, Arial;
+	font-size: 2.1em;
 	margin-left:20%;
 }
 
@@ -190,14 +189,14 @@ header {
 	position:absolute;
 	left: 85%;
 	top: 87%;
-	font-size: 18px;
+	font-size: 1.2em;
 	text-align: center;
 	font-color:white;
  }
 
  #play_again {
  	margin-top:2.5%;
- 	font-size:25px;
+ 	font-size:1.8em;
  }
 
 .game_table_div {
@@ -213,7 +212,38 @@ footer {
 	background-color:teal;
 	color:white;
 	text-align: center;
-	font-size: 15px;
+	font-size: 1.1em;
 	padding-top: .6%;
 	padding-bottom: .6%;
 }
+
+@media xs {    
+
+}
+
+
+@media s
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+
+
+@media m
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+
+@media large
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+
