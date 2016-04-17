@@ -137,7 +137,7 @@ header {
   line-height: 120px;
 	font-size: .9em;
 	width:9em;
-	font-family: fantasy, Lato, Impact, Arial;
+	font-family: fantasy, Lato, Impact;
 }
 
 
@@ -148,7 +148,7 @@ header {
   line-height: 120px;
 	font-size: .9em;
 	width:9em;
-	font-family: fantasy, Lato, Impact, Arial;
+	font-family: fantasy, Lato, Impact;
 	text-align: left;
 	padding-left: 13px;
 	cursor: default;
@@ -156,12 +156,10 @@ header {
 
 
 #score {
-	position: fixed;
-	left:77%;
+	position: absolute;
 	top:12%;
+	left:70%;
 	font-size: 1em;
-	text-align: center;
-	float:right;
 }
 
 #score td {
@@ -176,7 +174,7 @@ header {
 .imageAndPrize{
 	margin:0 auto;
 	width: 70%;
-	font-family: fantasy, Lato, Impact, Arial;
+	font-family: fantasy, Lato, Impact;
 	font-size: 2.1em;
 	margin-left:20%;
 }
@@ -187,9 +185,9 @@ header {
 
 #home {
 	position:absolute;
-	left: 85%;
-	top: 87%;
-	font-size: 1.2em;
+	left: 75%;
+	top: 65%;
+	font-size: 1.1em;
 	text-align: center;
 	font-color:white;
  }
@@ -206,44 +204,34 @@ header {
 
 footer {
   position: absolute;
-  left: 0;
+  left:0px;
   bottom: 0;
   width: 100%;
 	background-color:teal;
 	color:white;
 	text-align: center;
 	font-size: 1.1em;
-	padding-top: .6%;
-	padding-bottom: .6%;
-}
-
-@media xs {    
-
+	height:40px;
+	line-height:40px;
+	display:inline-block;
 }
 
 
-@media s
-{    
-    .no-print, .no-print *
-    {
-        display: none !important;
-    }
+@media (max-width: 600px) {
+
 }
 
 
-@media m
-{    
-    .no-print, .no-print *
-    {
-        display: none !important;
-    }
+@media (max-width: 800px) {
+
 }
 
-@media large
-{    
-    .no-print, .no-print *
-    {
-        display: none !important;
-    }
+
+@media (max-width: 1000px) {
+
+}
+
+@media (min-width: 1001px) {
+
 }
 
