@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
     gameBoard = setUpBoard();
-    $('.game_options td').click(function(e) {
+    $('.difficulty_button').click(function(e) {
         if (app.gameOptionsAlreadyclicked === false) { //prevents a rare bug if gameoptions is dblclicked
             difficulty = e.target.id;
             who_starts();
@@ -16,7 +16,7 @@ $(document).ready(function() {
         playerMove(IDOfCellClicked);
     });
 
-    $('#play_again').click(function() {
+    $('#next_round').click(function() {
         clearBoard();
     });
 
@@ -37,10 +37,11 @@ app.currentPlayer = null;
 //App is designed to allow 'class' type variables to minimise the need for unnecessary parameter passing.
 
 
-function countdownAnimation() { 
+function countdownAnimation() {
 
     $('.game_control').fadeOut(500);
-    var countDownFrom = 5;
+    var countDownFrom = 4;
+    $('#countdown').delay(500).text("5...").fadeIn(500).fadeOut(500);
     var countDown = setInterval(function(){
     $('#countdown').text(countDownFrom + "...").fadeIn(500).fadeOut(500);
     countDownFrom--;
@@ -49,14 +50,14 @@ function countdownAnimation() {
     }
     }, 1000);
 
-    $('#play_lets').delay(700).fadeIn(500).delay(4860).fadeOut(500);
+    $('#rolling').delay(700).fadeIn(500).delay(3860).fadeOut(500);
     $('.game_in_play').fadeIn(500);
-    $('#play_is').delay(6560).fadeIn(500).append(app.startingPlayer);
-    $('#begun, #play_happening, .game_table, #home, #score').delay(6560).fadeIn(1500);
+    $('#starting_player_is').delay(5500).fadeIn(1000).append(app.startingPlayer);
+    $('#begun, #play_happening, .game_table, #home, #score, #next_round').delay(5500).fadeIn(1000);
     var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(app.currentPlayer + " It's your turn").fadeIn(100);
     $('.game_cell#3').prepend(currentPlayerDiv);
     setupScoreBoard();
-
+    $('#next_round').attr("disabled", "disabled");
 }
 
 function setupScoreBoard() {
@@ -84,19 +85,19 @@ function who_starts() { //Could this be written shorter?
     var randomPlayer = Math.floor(Math.random() * 2 + 1);
     if (difficulty !== "human") {
         if (randomPlayer === 1) {
-            app.startingPlayer = "The Computer of Doom! (X)";
+            app.startingPlayer = "The Computer of Doom!";
             app.currentPlayer = 'X';
             AIPlay();
         } else {
-            app.startingPlayer = "The Human! (O)";
+            app.startingPlayer = "The Human!";
             app.currentPlayer = 'O';
         }
     } else {
         if (randomPlayer === 1) {
-            app.startingPlayer = "Human Number 1! (X)";
+            app.startingPlayer = "Human Number 1!";
             app.currentPlayer = 'X';
         } else {
-            app.startingPlayer = "Human Number 2! (O)";
+            app.startingPlayer = "Human Number 2!";
             app.currentPlayer = 'O';
         }
     }
@@ -114,20 +115,20 @@ function changePlayer() {
 
 
 function changeStartingPlayer() {
-	if (app.startingPlayer === "The Computer of Doom! (X)") {
-	   app.startingPlayer = "The Human! (O)";
+	if (app.startingPlayer === ("The Computer of Doom! " + difficulty)) {
+	   app.startingPlayer = "The Human!";
 	   app.currentPlayer = 'O';
     }
-    else if (app.startingPlayer === "The Human! (O)") {
-        app.startingPlayer = "The Computer of Doom! (X)";
+    else if (app.startingPlayer === "The Human!") {
+        app.startingPlayer = "The Computer of Doom!";
         app.currentPlayer = 'X';
 	}
-    else if (app.startingPlayer === "Human Number 1! (X)") {
-        app.startingPlayer = "Human Number 2! (O)";
+    else if (app.startingPlayer === "Human Number 1!") {
+        app.startingPlayer = "Human Number 2!";
         app.currentPlayer = 'O';
     }
-    else if (app.startingPlayer === "Human Number 2! (O)") {
-        app.startingPlayer = "Human Number 1! (X)";
+    else if (app.startingPlayer === "Human Number 2!") {
+        app.startingPlayer = "Human Number 1!";
         app.currentPlayer = 'X';
     }
 }
@@ -144,7 +145,7 @@ function playerMove(IDOfCellClicked) {
             	if (difficulty === "AICheater") {
                     for (var i = 0; i < 9; i++) {
                         gameBoard[i] = 'X'; // Take all the cells
-                        $('#' + i).text('X').css('font-size', "60px");
+                        $('#' + i).text('X').css('font-size', "4rem");
                         }
                         changePlayer();
                         roundWon();
@@ -176,12 +177,11 @@ function clearBoard() {
     app.turn = 0;
     app.isRoundInProgress = true;
 	changeStartingPlayer();
-	$('#play_again').fadeOut(1000);
     for (var i = 0; i < 9; i++) { // Clearing the array
         gameBoard[i] = null;
-        $('#' + i).text('X').css('font-size', "25px");
+        $('#' + i).text('X').css('font-size', "2rem");
     }
-	$('.game_table td').empty().css("background-color", "white"); //Clear the table visuals and cell highlighting
+	$('.game_table td').empty().css("background-color", "transparent"); //Clear the table visuals and cell highlighting
     $('#play_is').text(app.startingPlayer + " will start this round.");
     var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(app.currentPlayer + " It's your turn").fadeIn(100);
     $('.game_cell#3').prepend(currentPlayerDiv);
@@ -189,6 +189,7 @@ function clearBoard() {
     if (app.currentPlayer === "X") {
         AIPlay();
     }
+    $('#next_round').attr("disabled", "disabled");
     console.log(app.turn);
 }
 
@@ -253,7 +254,7 @@ function roundWon() {
 function endRound(){
     $('#whos_turn_is_it').fadeOut(0);
     app.isRoundInProgress = false;
-    $('#play_again').fadeIn(1500);
+    $('#next_round').attr("disabled", false);
 }
 
 
@@ -478,8 +479,8 @@ function AICheater() {
     }
     else if (app.turn==6) {
         changePlayer();
-        var possibilities = [0,1,2,3,4,5,6,7,8];
-        var cheatingMove = getARandomOption(possibilities);
+         possibilities = [0,1,2,3,4,5,6,7,8];
+         cheatingMove = getARandomOption(possibilities);
         gameBoard[cheatingMove] = 'X'; // Play a 2nd time. Steal the cell if taken
         $('#' + cheatingMove).text('X');
         console.log("computer cheated at " + cheatingMove);
@@ -488,8 +489,8 @@ function AICheater() {
     }
     else if (app.turn==5 && doesComputerNeedToBlock()) {
         changePlayer();
-        var possibilities = [0,1,2,3,4,5,6,7,8];
-        var cheatingMove = getARandomOption(possibilities);
+         possibilities = [0,1,2,3,4,5,6,7,8];
+         cheatingMove = getARandomOption(possibilities);
         gameBoard[cheatingMove] = 'X'; // Play a 2nd time. Steal the cell if taken
         $('#' + cheatingMove).text('X');
         console.log("computer cheated at " + cheatingMove);
