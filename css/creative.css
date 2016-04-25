@@ -184,8 +184,8 @@ header {
 header .header-content {
     position: relative;
     width: 100%;
-    padding-top:100px;
-    padding-bottom:100px;
+    padding-top:5rem;
+    padding-bottom:20rem;
     text-align: center;
 }
 
@@ -207,7 +207,6 @@ header .header-content .header-content-inner p {
     color: rgba(255,255,255,.7);
 }
 
-@media(min-width:768px) {
     header {
         min-height: 100%;
     }
@@ -233,7 +232,6 @@ header .header-content .header-content-inner p {
         max-width: 80%;
         font-size: 18px;
     }
-}
 
 .section-heading {
     margin-top: 0;
@@ -244,11 +242,6 @@ header .header-content .header-content-inner p {
     max-width: 400px;
 }
 
-@media(min-width:992px) {
-    .service-box {
-        margin: 20px auto 0;
-    }
-}
 
 .service-box p {
     margin-bottom: 0;
@@ -304,15 +297,6 @@ header .header-content .header-content-inner p {
     opacity: 1;
 }
 
-@media(min-width:768px) {
-    .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
-        font-size: 16px;
-    }
-
-    .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
-        font-size: 22px;
-    }
-}
 
 .call-to-action h2 {
     margin: 0 auto 20px;
@@ -469,4 +453,20 @@ img::-moz-selection {
 
 body {
     webkit-tap-highlight-color: #222;
+}
+
+@media(max-width:768) {
+    .game_table{
+        margin-top:-10rem;
+    }
+
+}
+@media(min-width:768px) {
+    .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
+        font-size: 16px;
+    }
+
+    .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
+        font-size: 22px;
+    }
 }
