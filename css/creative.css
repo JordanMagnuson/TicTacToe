@@ -456,9 +456,6 @@ body {
 }
 
 @media(max-width:768) {
-    .game_table{
-        margin-top:-10rem;
-    }
 
 }
 @media(min-width:768px) {
