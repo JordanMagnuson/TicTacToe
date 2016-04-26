@@ -6,8 +6,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link rel="icon" type="image/png" href="http://www.favicon.cc/logo3d/345339.png">
 
     <title>Ash's TicTacToe</title>
@@ -39,9 +37,12 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only"></span>
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">TicTacToe - Ashley Pettit</a>
+                <a class="navbar-brand page-scroll" href="#page-top">TicTacToe </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -65,11 +66,11 @@
         </div>
     </nav>
 
-    <header>
+    <header style="min-height:100%">
         <div class="header-content">
-            <div class="header-content-inner">
+            <div class="header-content-inner" id="game_options">
                 <div class = "game_control">
-                    <h2>Choose your difficulty </h2>
+                    <h2 style = "margin-top:-.5rem">Choose your difficulty </h2>
                     <hr>
 				<a id ="human" class="difficulty_button btn btn-primary btn-xl" style ="background-color:teal;">Human Verus Human</a>
 				<a id ="easy" class="difficulty_button btn btn-primary btn-xl" style ="background-color:green" >Easy</a>
@@ -79,36 +80,40 @@
             </div>
         </div>
 
-            <div class="header-content-inner" id="game_table">
-                <p>	<div class ="game_in_play">
-                		<div id = "rolling">Rolling to see who goes first.... </div>
-                		<div id = "countdown"> </div>
-                		<div id = "starting_player_is">The starting player is </div>
-                		<div id = "begun"> The game has begun.</div>
-                		<div class="game_table_div">
-                			<table class="game_table">
-                				<tr>
-                					<td class ="game_cell" id = "0"></td>
-                					<td class ="game_cell" id = "1"></td>
-                					<td class ="game_cell" id = "2"></td>
-                				</tr>
-                				<tr>
-                					<td class ="game_cell" id = "3"></td>
-                					<td class ="game_cell" id = "4"></td>
-                					<td class ="game_cell" id = "5"></td>
-                				</tr>
-                				<tr>
-                					<td class ="game_cell" id = "6"></td>
-                					<td class ="game_cell" id = "7"></td>
-                					<td class ="game_cell" id = "8"></td>
-                				</tr>
-                			</table>
-                		</div>
-</p>
-    <a id="next_round" class="btn btn-primary btn-xl">Next Round</a>
-            </div>
+
+                <div class="header-content-inner game_options">
+                        <p id = "rolling" style="margin-bottom:0rem;">Rolling to see who goes first.... </p>
+                        <p id = "countdown" style="margin-bottom:0rem;"> </p>
+                        <p style="padding:0px; margin-top:-2.5rem; margin-bottom:.2rem; font-size:1em" id = "starting_player_is">The starting player is </p>
+                        <p id = "begun" style="margin-top:1rem; margin-bottom:1rem; font-size:1em"> The game has begun.</p>
+                        <div class="game_table_div">
+                        <table class="game_table">
+            				<tr>
+            					<td class ="game_cell" id = "0"></td>
+            					<td class ="game_cell" id = "1"></td>
+            					<td class ="game_cell" id = "2"></td>
+            				</tr>
+            				<tr>
+            					<td class ="game_cell" id = "3"></td>
+            					<td class ="game_cell" id = "4"></td>
+            					<td class ="game_cell" id = "5"></td>
+            				</tr>
+            				<tr>
+            					<td class ="game_cell" id = "6"></td>
+            					<td class ="game_cell" id = "7"></td>
+            					<td class ="game_cell" id = "8"></td>
+            				</tr>
+            			</table>
+                    </div>
+                </div>
+        <p>
+        <div class="header-content-inner game_options" style="margin-top:3rem">
+            <a id="next_round" class="btn btn-primary btn-xl">Next Round</a>
         </div>
-    </div>
+        </p>
+        <p> </p>
+        </header>
+
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
