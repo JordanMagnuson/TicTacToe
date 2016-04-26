@@ -19,6 +19,11 @@ $(document).ready(function() {
         clearBoard();
     });
 
+    $('#switch').click(function() {
+        round--
+        clearBoard();
+    });
+
     $('#home').click(function() {
         location.reload();
     });
@@ -52,8 +57,7 @@ function countdownAnimation() {
         $('#rolling').fadeIn(500).delay(4000).fadeOut(500);
         $('#starting_player_is').delay(5000).fadeIn(500).append(app.startingPlayer);
         $('#begun, #play_happening, .game_table, #home, #score, #next_round').delay(5000).fadeIn(500);
-        // var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(app.currentPlayer + " It's your turn").fadeIn(100);
-        $('.game_cell#3').prepend(currentPlayerDiv);
+        $('#wonDiv').delay(5000).fadeIn(500).text(app.currentPlayer + " It's your turn");
         setupScoreBoard();
         $('#next_round').attr("disabled", "disabled");
  }, 500);
@@ -108,12 +112,12 @@ function changePlayer() {
     } else {
         app.currentPlayer = 'X';
     }
-    // $('#whos_turn_is_it').text(app.currentPlayer + " It's your turn");
+    $('#wonDiv').text(app.currentPlayer + " It's your turn");
 }
 
 
 function changeStartingPlayer() {
-    if (app.startingPlayer === ("The Computer of Doom! " + difficulty)) {
+    if (app.startingPlayer == ("The Computer of Doom!")) {
         app.startingPlayer = "The Human!";
         app.currentPlayer = 'O';
     } else if (app.startingPlayer === "The Human!") {
@@ -164,9 +168,8 @@ function playerMove(IDOfCellClicked) {
 
 
 function clearBoard() {
-    // $('#won').empty();
     app.round++;
-    app.turn = 0;
+    app.turn = 0; //should be 1
     app.isRoundInProgress = true;
     changeStartingPlayer();
     for (var i = 0; i < 9; i++) { // Clearing the array
@@ -174,9 +177,8 @@ function clearBoard() {
         $('#' + i).text('X').css('font-size', "2rem");
     }
     $('.game_table td').empty().css("background-color", "transparent"); //Clear the table visuals and cell highlighting
-    $('#play_is').text(app.startingPlayer + " will start this round.");
-    // var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(app.currentPlayer + " It's your turn").fadeIn(100);
-    $('.game_cell#3').prepend(currentPlayerDiv);
+    $('#starting_player_is').text(app.startingPlayer + " will start this round.");
+    $('#wonDiv').text(app.currentPlayer + " It's your turn").fadeIn(100);
     $('#begun').text("The game continues! Round " + app.round);
     if (app.currentPlayer === "X") {
         AIPlay();
@@ -225,15 +227,13 @@ function checkForDraw() {
 
 
 function roundDrew() {
-    // var wonDiv = $('<div>').attr('id', 'won').text("It's a draw!").fadeIn(100);
-    // $('.game_cell#5').append(wonDiv);
+    $('#wonDiv').text("It's a draw!").fadeIn(100);
     endRound();
 }
 
 
 function roundWon() {
-    // var wonDiv = $('<div>').attr('id', 'won').text(app.currentPlayer + " Takes The Round!").fadeIn(100);
-    // $('.game_cell#5').append(wonDiv);
+    $('#wonDiv').text(app.currentPlayer + " Takes The Round!").fadeIn(100);
     console.log("winning cells where " + winningCells);
     updateScore();
     endRound();
@@ -244,7 +244,6 @@ function roundWon() {
 
 
 function endRound() {
-    // $('#whos_turn_is_it').fadeOut(0);
     app.isRoundInProgress = false;
     $('#next_round').attr("disabled", false);
 }
