@@ -28,8 +28,8 @@ a[disabled] {
 	margin: 0 auto;
 	display:none;
 	margin-top:1rem;
-	width:30rem;
-	height:30rem;
+	width:20em;
+	height:20em;
 }
 
 .game_table td {
@@ -38,9 +38,10 @@ a[disabled] {
 	margin: 0 auto;
 	text-align: center;
 	border-color: black;
-	font-size: 1.8rem;
-	width: 9.5rem;
-	height: 9.5rem;
+	font-size: 1.4em;
+	color:rgba(255,255,255,.7);
+	width: 2em;
+	height: 3em;
 	cursor:pointer;
 	position:relative;
 }
