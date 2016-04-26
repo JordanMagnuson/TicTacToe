@@ -8,6 +8,7 @@
 	cursor: pointer;
 	font-size:1.3rem;
 	padding: 1.2rem;
+	color:rgba(255,255,255,.9);
 }
 
 a[disabled] {
@@ -21,6 +22,7 @@ a[disabled] {
 #begun, #play_again, #computer_takes_round, #human_takes_round, #new_round, #score, #whos_turn_is_it, #starting_player_is, #next_round, #rolling, #wonDiv {
 	display:none;
 }
+
 
 
 .game_table {
@@ -38,14 +40,20 @@ a[disabled] {
 	margin: 0 auto;
 	text-align: center;
 	border-color: black;
-	font-size: 1.4em;
+	font-size: 2.2em;
 	color:rgba(255,255,255,.7);
 	width: 2em;
 	height: 3em;
 	cursor:pointer;
 	position:relative;
+	font-family:Futura, cursive, sans-serif;
 }
 
 #wonDiv {
 	margin-top:2rem;
+	color:rgba(255,255,255,.7);
+}
+
+h1{
+	color:rgba(255,255,255,.7);
 }

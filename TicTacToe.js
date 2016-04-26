@@ -19,8 +19,8 @@ $(document).ready(function() {
         clearBoard();
     });
 
-    $('#switch').click(function() {
-        round--
+    $('#switch_player').click(function() {
+        app.round--;
         clearBoard();
     });
 
@@ -55,9 +55,8 @@ function countdownAnimation() {
             }
         }, 1000);
         $('#rolling').fadeIn(500).delay(4000).fadeOut(500);
-        $('#starting_player_is').delay(5000).fadeIn(500).append(app.startingPlayer);
+        $('#starting_player_is').delay(5000).fadeIn(500).text("The starting player is " + app.startingPlayer);
         $('#begun, #play_happening, .game_table, #home, #score, #next_round').delay(5000).fadeIn(500);
-        $('#wonDiv').delay(5000).fadeIn(500).text(app.currentPlayer + " It's your turn");
         setupScoreBoard();
         $('#next_round').attr("disabled", "disabled");
  }, 500);
@@ -65,11 +64,12 @@ function countdownAnimation() {
 
 function setupScoreBoard() {
     if (difficulty === "human") {
-        $('#title_score1').text("Human 1 Score");
-        $('#title_score2').text("Human 2 Score");
-    } else {
+        $('#title_score1').text("Player 1 Score");
+        $('#title_score2').text("Player 2 Score");
+    }
+    else {
         $('#title_score1').text("Computer Score");
-        $('#title_score2').text("Human Score");
+        $('#title_score2').text("Player Score");
     }
 }
 
@@ -91,15 +91,15 @@ function who_starts() { //Could this be written shorter?
             app.currentPlayer = 'X';
             AIPlay();
         } else {
-            app.startingPlayer = "The Human!";
+            app.startingPlayer = "The Human";
             app.currentPlayer = 'O';
         }
     } else {
         if (randomPlayer === 1) {
-            app.startingPlayer = "Human Number 1!";
+            app.startingPlayer = "Player 1";
             app.currentPlayer = 'X';
         } else {
-            app.startingPlayer = "Human Number 2!";
+            app.startingPlayer = "Player 2";
             app.currentPlayer = 'O';
         }
     }
@@ -112,22 +112,22 @@ function changePlayer() {
     } else {
         app.currentPlayer = 'X';
     }
-    $('#wonDiv').text(app.currentPlayer + " It's your turn");
+    $('#starting_player_is').text(app.currentPlayer + " It's your turn");
 }
 
 
 function changeStartingPlayer() {
     if (app.startingPlayer == ("The Computer of Doom!")) {
-        app.startingPlayer = "The Human!";
+        app.startingPlayer = "The Human";
         app.currentPlayer = 'O';
-    } else if (app.startingPlayer === "The Human!") {
+    } else if (app.startingPlayer === "The Human") {
         app.startingPlayer = "The Computer of Doom!";
         app.currentPlayer = 'X';
-    } else if (app.startingPlayer === "Human Number 1!") {
-        app.startingPlayer = "Human Number 2!";
+    } else if (app.startingPlayer === "Player 1") {
+        app.startingPlayer = "Player 2";
         app.currentPlayer = 'O';
-    } else if (app.startingPlayer === "Human Number 2!") {
-        app.startingPlayer = "Human Number 1!";
+    } else if (app.startingPlayer === "Player 2") {
+        app.startingPlayer = "Player 1";
         app.currentPlayer = 'X';
     }
 }
@@ -144,7 +144,7 @@ function playerMove(IDOfCellClicked) {
                 if (difficulty === "AICheater") {
                     for (var i = 0; i < 9; i++) {
                         gameBoard[i] = 'X'; // Take all the cells
-                        $('#' + i).text('X').css('font-size', "4rem");
+                        $('#' + i).text('X').css('font-size', "3rem").css('background-color','red');
                     }
                     changePlayer();
                     roundWon();
@@ -174,11 +174,9 @@ function clearBoard() {
     changeStartingPlayer();
     for (var i = 0; i < 9; i++) { // Clearing the array
         gameBoard[i] = null;
-        $('#' + i).text('X').css('font-size', "2rem");
     }
-    $('.game_table td').empty().css("background-color", "transparent"); //Clear the table visuals and cell highlighting
+    $('.game_table td').empty().css("background-color", "transparent").css('font-size', "2.2rem"); //Clear the table visuals and cell highlighting
     $('#starting_player_is').text(app.startingPlayer + " will start this round.");
-    $('#wonDiv').text(app.currentPlayer + " It's your turn").fadeIn(100);
     $('#begun').text("The game continues! Round " + app.round);
     if (app.currentPlayer === "X") {
         AIPlay();
@@ -227,13 +225,13 @@ function checkForDraw() {
 
 
 function roundDrew() {
-    $('#wonDiv').text("It's a draw!").fadeIn(100);
+    $('#starting_player_is').text("It's a draw!").fadeIn(100);
     endRound();
 }
 
 
 function roundWon() {
-    $('#wonDiv').text(app.currentPlayer + " Takes The Round!").fadeIn(100);
+    $('#starting_player_is').text(app.currentPlayer + " Takes The Round!").fadeIn(100);
     console.log("winning cells where " + winningCells);
     updateScore();
     endRound();
