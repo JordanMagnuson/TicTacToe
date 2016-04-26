@@ -37,7 +37,7 @@ app.currentPlayer = null;
 
 
 function countdownAnimation() {
-
+    $('.game_in_play').fadeIn();
     $('.game_control').fadeOut(500);
     var countDownFrom = 4;
     setTimeout(function(){
@@ -49,12 +49,10 @@ function countdownAnimation() {
                 clearTimeout(countDown);
             }
         }, 1000);
-
-        $('#rolling').delay(700).fadeIn(500).delay(3860).fadeOut(500);
-        $('.game_in_play').fadeIn(500);
-        $('#starting_player_is').delay(5200).fadeIn(1000).append(app.startingPlayer);
-        $('#begun, #play_happening, .game_table, #home, #score, #next_round').delay(5200).fadeIn(1000);
-        var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(app.currentPlayer + " It's your turn").fadeIn(100);
+        $('#rolling').fadeIn(500).delay(4000).fadeOut(500);
+        $('#starting_player_is').delay(5000).fadeIn(500).append(app.startingPlayer);
+        $('#begun, #play_happening, .game_table, #home, #score, #next_round').delay(5000).fadeIn(500);
+        // var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(app.currentPlayer + " It's your turn").fadeIn(100);
         $('.game_cell#3').prepend(currentPlayerDiv);
         setupScoreBoard();
         $('#next_round').attr("disabled", "disabled");
@@ -110,7 +108,7 @@ function changePlayer() {
     } else {
         app.currentPlayer = 'X';
     }
-    $('#whos_turn_is_it').text(app.currentPlayer + " It's your turn");
+    // $('#whos_turn_is_it').text(app.currentPlayer + " It's your turn");
 }
 
 
@@ -166,7 +164,7 @@ function playerMove(IDOfCellClicked) {
 
 
 function clearBoard() {
-    $('#won').empty();
+    // $('#won').empty();
     app.round++;
     app.turn = 0;
     app.isRoundInProgress = true;
@@ -177,7 +175,7 @@ function clearBoard() {
     }
     $('.game_table td').empty().css("background-color", "transparent"); //Clear the table visuals and cell highlighting
     $('#play_is').text(app.startingPlayer + " will start this round.");
-    var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(app.currentPlayer + " It's your turn").fadeIn(100);
+    // var currentPlayerDiv = $('<div>').attr('id', 'whos_turn_is_it').text(app.currentPlayer + " It's your turn").fadeIn(100);
     $('.game_cell#3').prepend(currentPlayerDiv);
     $('#begun').text("The game continues! Round " + app.round);
     if (app.currentPlayer === "X") {
@@ -227,15 +225,15 @@ function checkForDraw() {
 
 
 function roundDrew() {
-    var wonDiv = $('<div>').attr('id', 'won').text("It's a draw!").fadeIn(100);
-    $('.game_cell#5').append(wonDiv);
+    // var wonDiv = $('<div>').attr('id', 'won').text("It's a draw!").fadeIn(100);
+    // $('.game_cell#5').append(wonDiv);
     endRound();
 }
 
 
 function roundWon() {
-    var wonDiv = $('<div>').attr('id', 'won').text(app.currentPlayer + " Takes The Round!").fadeIn(100);
-    $('.game_cell#5').append(wonDiv);
+    // var wonDiv = $('<div>').attr('id', 'won').text(app.currentPlayer + " Takes The Round!").fadeIn(100);
+    // $('.game_cell#5').append(wonDiv);
     console.log("winning cells where " + winningCells);
     updateScore();
     endRound();
@@ -246,7 +244,7 @@ function roundWon() {
 
 
 function endRound() {
-    $('#whos_turn_is_it').fadeOut(0);
+    // $('#whos_turn_is_it').fadeOut(0);
     app.isRoundInProgress = false;
     $('#next_round').attr("disabled", false);
 }
