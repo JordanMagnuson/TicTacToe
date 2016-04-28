@@ -29,9 +29,9 @@ a[disabled] {
 	text-align: center;
 	margin: 0 auto;
 	display:none;
-	margin-top:1rem;
-	width:20em;
-	height:20em;
+	margin-top:.6rem;
+	width:18rem;
+	height:18rem;
 }
 
 .game_table td {
@@ -40,10 +40,10 @@ a[disabled] {
 	margin: 0 auto;
 	text-align: center;
 	border-color: black;
-	font-size: 2.2em;
+	font-size: 1.3em;
 	color:rgba(255,255,255,.7);
-	width: 2em;
-	height: 3em;
+	width: 5rem;
+	height: 5rem;
 	cursor:pointer;
 	position:relative;
 	font-family:Futura, cursive, sans-serif;
@@ -54,6 +54,30 @@ a[disabled] {
 	color:rgba(255,255,255,.7);
 }
 
+header .header-content .header-content-inner p{
+	font-size:.9em;
+}
+
 h1{
 	color:rgba(255,255,255,.7);
+}
+
+@media (min-width: 800px) {
+	.game_table {
+		margin-top:1rem;
+		width:30rem;
+		height:30rem;
+	}
+
+	.game_table td {
+		font-size: 3rem;
+		width: 9rem;
+		height: 9rem;
+	}
+
+header .header-content .header-content-inner p{
+	font-size:1.35em;
+}
+
+
 }
