@@ -64,13 +64,13 @@ h1{
 
 @media (min-width: 800px) {
 	.game_table {
-		margin-top:1.5rem;
+		margin-top:1.75rem;
 		width:30rem;
 		height:30rem;
 	}
 
 	.game_table td {
-		font-size: 2.5rem;
+		font-size: 2.3rem;
 		width: 9rem;
 		height: 9rem;
 	}
@@ -82,7 +82,7 @@ h1{
 
 
 header .header-content .header-content-inner p{
-	font-size:1.5em;
+	font-size:1.35em;
 }
 
 
