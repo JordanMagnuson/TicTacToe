@@ -2,11 +2,10 @@ $(document).ready(function() {
     gameBoard = setUpBoard();
     $('.difficulty_button').click(function(e) {
         if (app.gameOptionsAlreadyclicked === false) { //prevents a rare bug if gameoptions is dblclicked
+            app.gameOptionsAlreadyclicked = true;
             difficulty = e.target.id;
             who_starts();
             countdownAnimation();
-            app.gameOptionsAlreadyclicked = true;
-            console.log("Loading " + difficulty + " computer");
         }
     });
 
@@ -42,6 +41,7 @@ app.currentPlayer = null;
 
 
 function countdownAnimation() {
+    console.log("Loading " + difficulty + " computer");
     $('.game_in_play').fadeIn();
     $('.game_control').fadeOut(500);
     var countDownFrom = 4;
@@ -169,7 +169,7 @@ function playerMove(IDOfCellClicked) {
 
 function clearBoard() {
     app.round++;
-    app.turn = 0; //should be 1
+    app.turn = 1;
     app.isRoundInProgress = true;
     changeStartingPlayer();
     for (var i = 0; i < 9; i++) { // Clearing the array
@@ -182,7 +182,7 @@ function clearBoard() {
         AIPlay();
     }
     $('#next_round').attr("disabled", "disabled");
-    console.log(app.turn);
+    console.log("turn " + app.turn);
 }
 
 
@@ -376,7 +376,6 @@ function getARandomOption(arrayOfOptions) {
 
 
 function AIHardDefending() {
-    console.log(app.turn);
     //This is loaded when the computer plays 2nd. The computer is aiming to draw.
     if (isComputerAbleToWin()) {
         //computer plays in winning cell
@@ -396,24 +395,24 @@ function AIHardDefending() {
         $('#' + 4).prepend(app.currentPlayer);
         changePlayer();
         console.log("Computer took the center to be defensive");
-    } else if (gameBoard[2] === 'O' && gameBoard[6] === 'O' && app.turn === 3) { //prevents an incorrect corner play
+    } else if (gameBoard[2] === 'O' && gameBoard[6] === 'O' && app.turn === 4) { //prevents an incorrect corner play
         gameBoard[3] = app.currentPlayer; //could use a randomizer here, could add to next else if
         $('#' + 3).prepend(app.currentPlayer);
         changePlayer();
         console.log("Computer took 3 to prevent alt corn 2 way win");
-    } else if (gameBoard[0] === 'O' && gameBoard[8] === 'O' && app.turn === 3) {
+    } else if (gameBoard[0] === 'O' && gameBoard[8] === 'O' && app.turn === 4) {
         gameBoard[5] = app.currentPlayer;
         $('#' + 5).prepend(app.currentPlayer);
         changePlayer();
         console.log("Computer took 5 to prevent alt corn 2 way win");
     }
     //can still lose if human takes center
-    else if (gameBoard[4] === 'O' && app.turn == 1) {
+    else if (gameBoard[4] === 'O' && app.turn == 2) {
         gameBoard[6] = app.currentPlayer;
         $('#' + 6).prepend(app.currentPlayer);
         changePlayer();
         console.log("Computer took 6 to prevent middle triangle win");
-    } else if (gameBoard[4] === 'O' && app.turn == 3) {
+    } else if (gameBoard[4] === 'O' && app.turn == 4) {
         gameBoard[8] = app.currentPlayer;
         $('#' + 8).prepend(app.currentPlayer);
         changePlayer();
@@ -440,6 +439,8 @@ function AICheater() {
     } else {
         playRandomly();
     }
+    var oneInTen = Math.floor(Math.random() * 10 + 1);
+    console.log("The computer rolled " + oneInTen + " looking for 5");
     if (doesComputerNeedToBlock() && app.turn > 5) {
         //computer plays in blocking cell
         changePlayer();
@@ -447,49 +448,20 @@ function AICheater() {
         $('#' + humanAbleToWinAt).text('X');
         console.log("The human is attempting a 2 way win - Computer cheated to block it");
         changePlayer();
-    } else if (app.turn == 6) {
-        changePlayer();
-        possibilities = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-        cheatingMove = getARandomOption(possibilities);
-        gameBoard[cheatingMove] = 'X'; // Play a 2nd time. Steal the cell if taken
-        $('#' + cheatingMove).text('X');
-        console.log("computer cheated at " + cheatingMove);
-        changePlayer();
-        app.turn++;
-    } else if (app.turn == 5 && doesComputerNeedToBlock()) {
-        changePlayer();
-        possibilities = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-        cheatingMove = getARandomOption(possibilities);
-        gameBoard[cheatingMove] = 'X'; // Play a 2nd time. Steal the cell if taken
-        $('#' + cheatingMove).text('X');
-        console.log("computer cheated at " + cheatingMove);
-        changePlayer();
-        app.turn++;
-    } else if ((app.turn == 7 || app.turn == 8) && (gameBoard[4] !== 'X')) {
-        changePlayer();
-        gameBoard[4] = 'X'; // Steal the center
-        $('#' + 4).text('X');
-        app.turn++;
-        console.log("computer cheated by stealing 4");
-        changePlayer();
-    } else if ((app.turn == 7 || app.turn == 8) && (gameBoard[8] !== 'X')) {
-        changePlayer();
-        gameBoard[6] = 'X'; // Steal 6 instead of the center
-        $('#' + 6).text('X');
-        app.turn++;
-        console.log("computer cheated by stealing 6");
-        changePlayer();
-    } else if ((app.turn == 7 || app.turn == 8) && (gameBoard[2] !== 'X')) {
-        changePlayer();
-        gameBoard[6] = 'X'; // Steal 4 instead of the center
-        $('#' + 6).text('X');
-        app.turn++;
-        console.log("computer cheated by stealing 6");
-        changePlayer();
+        app.turn++; // app.turn is increased as AI played twice
     }
-    if (checkForWin()) {
-        roundWon();
-    } else if (checkForDraw() && app.round > 10) {
+    else if (oneInTen == 5 && app.turn > 5) {
+        if (isComputerAbleToWin()) {
+            roundWon();
+            console.log("computer cheated playing twice to win");
+        }
+        else {
+            playRandomly();
+            console.log("computer cheated and played twice");
+        }
+        app.turn++;
+    }
+    if (checkForDraw() && app.round > 10) {
         for (var i = 0; i < 9; i++) {
             gameBoard[i] = 'X'; // Take all the cells
             $('#' + i).text('X');
@@ -502,5 +474,5 @@ function AICheater() {
         roundWon();
     }
     changePlayer();
-    console.log(app.turn);
+    console.log("The computer just played on turn " + app.turn);
 }
